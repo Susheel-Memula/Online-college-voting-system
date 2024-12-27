@@ -1,0 +1,101 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geethanjali College of Engineering and Technology</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #004080;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+        header img {
+            height: 60px;
+            margin-right: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        nav {
+            background-color: #e0e0e0;
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+        a {
+            text-decoration: none;
+            color: #004080;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #007bff;
+        }
+        .college-photo {
+            width: 100%;
+            margin: 20px 0;
+        }
+        .college-photo img {
+            width: 100%;
+            height: auto;
+        }
+        footer {
+            background-color: #004080;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="D:\PBL\public\clg1.png" alt="College Logo">
+        <h1>Geethanjali College of Engineering and Technology</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#" id="votingInterfaceLink">Voting Interface</a></li>
+            <li><a href="http://localhost:3000/admin.html">Admin Interface</a></li>
+        </ul>
+    </nav>
+    <div class="college-photo">
+        <img src="D:\PBL\public\clg3.png" alt="College Photo">
+    </div>
+    <footer>
+        <p>&copy; 2024 Geethanjali College of Engineering and Technology</p>
+    </footer>
+    <script>
+        document.getElementById('votingInterfaceLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = 'http://localhost:3000';
+            
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Interface - College Voting System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .stats, .candidates {
+            margin: 20px 0;
+        }
+        .candidates table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .candidates th, .candidates td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .login-form {
+            max-width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background: #0056b3;
+        }
+        header {
+            background-color: #004080;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+        header img {
+            height: 60px;
+            margin-right: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+       footer {
+            background-color: #004080;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="clg1.png" alt="College Logo">
+        <h1>Geethanjali College of Engineering and Technology</h1>
+    </header>
+
+    <!-- Admin Login Form -->
+    <div id="loginForm" class="login-form">
+        <h2>Admin Login</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+        <p id="errorMessage" style="color: red; display: none;">Invalid username or password</p>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="container hidden">
+        <h1>Admin Dashboard</h1>
+        <div class="stats">
+            <h2>Election Stats</h2>
+            <p>Total Votes Casted: <span id="totalVotes">0</span></p>
+        </div>
+        <div class="candidates">
+            <h2>Candidate Votes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Candidate Name</th>
+                        <th>Votes Received</th>
+                    </tr>
+                </thead>
+                <tbody id="candidateVotes">
+                    <!-- Candidate votes will be populated here -->
+                </tbody>
+            </table>
+        </div>
+        <!-- Reset votes button -->
+        <button id="resetVotesButton" class="hidden">Reset Votes</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Geethanjali College of Engineering and Technology</p>
+    </footer>
+
+    <script>
+        const validUsername = "admin";
+        const validPassword = "password123";
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (username === validUsername && password === validPassword) {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('adminDashboard').classList.remove('hidden');
+                document.getElementById('resetVotesButton').classList.remove('hidden');
+                fetchElectionData();
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        const fetchElectionData = () => {
+            const votes = JSON.parse(localStorage.getItem('votes')) || {};
+            let totalVotes = 0;
+            const candidateVotesElement = document.getElementById('candidateVotes');
+            candidateVotesElement.innerHTML = '';
+
+            for (const [candidate, votesCount] of Object.entries(votes)) {
+                totalVotes += votesCount;
+                const row = document.createElement('tr');
+                const nameCell = document.createElement('td');
+                nameCell.innerText = candidate;
+                const votesCell = document.createElement('td');
+                votesCell.innerText = votesCount;
+
+                row.appendChild(nameCell);
+                row.appendChild(votesCell);
+                candidateVotesElement.appendChild(row);
+            }
+
+            document.getElementById('totalVotes').innerText = totalVotes;
+        };
+
+        // Event listener for the reset votes button
+        document.getElementById('resetVotesButton').addEventListener('click', function() {
+            // Clear the votes stored in localStorage
+            localStorage.removeItem('votes');
+            // Refresh the page to reflect the reset
+            location.reload();
+        });
+    </script>
+</body>
+</html>
